@@ -1,6 +1,5 @@
 
 var guessesLeft;
-var userGuess;
 var nintendo, sega, sony; 
 
 nintendo = ["n", "i", "n", "t", "e", "n", "d", "o"];
@@ -11,18 +10,30 @@ var wordChoices = [nintendo, sega, sony];
 
 var randomWord = wordChoices[Math.floor(Math.random()*wordChoices.length)];
 
+guessesLeft = 12;
+
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
 
-var checkLetter = (randomWord.indexOf(event.key));
+    // Checks if the user's guess is in the random word.
+    var checkLetter = (randomWord.indexOf(event.key));
 
-if  (checkLetter === -1) {
-    console.log("sorry, guess again");
+
+    if  (checkLetter === -1) {
+        console.log("sorry, guess again");
+        guessesLeft = (guessesLeft - 1);
+        console.log(guessesLeft);
+    }
+
+        // else if (guessesLeft < 0) {
+        //     console.log("You're out of lives.")
+        // }
+    
+    else {
+        console.log("good job, you guessed right");
+    }
+
 }
 
-else {
-    console.log("good job, you guessed right");
-}
 
-}

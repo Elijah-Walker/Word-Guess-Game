@@ -20,20 +20,20 @@ document.onkeyup = function(event) {
     var checkLetter = (randomWord.indexOf(event.key));
 
 
-    if  (checkLetter === -1) {
-        console.log("sorry, guess again");
-        guessesLeft = (guessesLeft - 1);
-        console.log(guessesLeft);
-    }
+        if  (checkLetter === -1 && guessesLeft > 0) {
+            console.log("sorry, guess again");
+            guessesLeft = (guessesLeft - 1);
+            console.log(guessesLeft);
+        }
 
-        // else if (guessesLeft < 0) {
-        //     console.log("You're out of lives.")
-        // }
+        else if (checkLetter != -1 && guessesLeft > 0) {
+            console.log("good job, you guessed right");
+        }
     
-    else {
-        console.log("good job, you guessed right");
-    }
-
+        else {
+            console.log("You're out of lives.")
+        }
+    
 }
 
 

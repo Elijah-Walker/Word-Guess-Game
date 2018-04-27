@@ -28,27 +28,10 @@ var answerArray = [];
     guessedLetterArray[j] = "";
  }
 
- document.write(guessedLetterArray);
+ document.getElementById("guessedLetters").innerHTML = guessedLetterArray;
 
-//  function renderQuestion() {
-    // If there are still more questions, render the next one.
-    // if (guessedRight <= (randomWord.length - 1)) {
-    //   function();
-    // }
-//     // If there aren't, render the end game screen.
-//     else {
-//       document.querySelector("#question").innerHTML = "Game Over!";
-//       document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
-//     }
-//   }
-
-//   // Function that updates the score...
-//   function updateScore() {
-//     document.querySelector("#score").innerHTML = "Score: " + score;
-//   }
 
 // while (guessedRight <= (randomWord.length - 1)) {
-// function playGame() {
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
@@ -58,30 +41,31 @@ document.onkeyup = function(event) {
     key = (event.key);
     var checkLetter = (randomWord.indexOf(event.key));
 
-        if (guessedRight === randomWord.length) {
-            console.log("yay! You win");
-            return;
-        }
+        // if (guessedRight = (randomWord.length -1)) {
+        //     document.getElementById("gameEnd").innerHTML = "Yay! You win!";
+        //     return;
+        // }
     
-         if  (checkLetter === -1 && guessesLeft > 0) {
-            console.log("sorry, guess again");
+        if  (checkLetter === -1 && guessesLeft > 0) {
             guessedLetterArray.push(key);
-            console.log(guessedLetterArray);
+            document.getElementById("guessedLetters").innerHTML = guessedLetterArray; 
             guessesLeft = (guessesLeft - 1);
-            console.log(guessesLeft);
+            document.getElementById("guessesLeft").innerHTML = "Guesses left: " + guessesLeft;
         }
 
         else if (checkLetter != -1 && guessesLeft > 0) {
-            console.log("good job, you guessed right");
-            // answerArray.out.printIn(key);
-            // console.log(answerArray);
+            answerArray.splice([randomWord.indexOf(key)], 1, key);
+            document.getElementById("rightLetters").innerHTML = answerArray;
         }
     
         else {
-            console.log("You're out of lives.");
+            document.getElementById("gameEnd").innerHTML = "Game Over";
         }
     
 }
 
 // }
+
+// else {
+    // document.getElementById("gameEnd").innerHTML = "Yay! You win!";
 // }

@@ -14,14 +14,13 @@ var randomWord = wordChoices[Math.floor(Math.random()*wordChoices.length)];
 
 guessesLeft = 12;
 
-// document.write(guessesLeft);
 
 var answerArray = [];
  for (var i = 0; i < randomWord.length; i++) {
  answerArray[i] = "_";
  }
 
- document.write(answerArray);
+ document.getElementById("rightLetters").innerHTML = answerArray;
 
  var guessedLetterArray = [];
  for (var j = 0; j < randomWord.length; j++) {
@@ -30,8 +29,9 @@ var answerArray = [];
 
  document.getElementById("guessedLetters").innerHTML = guessedLetterArray;
 
+ //while there are blank spaces, run this code
 
-// while (guessedRight <= (randomWord.length - 1)) {
+//??? while (answerArray.indexOf("_")) {
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
@@ -41,12 +41,18 @@ document.onkeyup = function(event) {
     key = (event.key);
     var checkLetter = (randomWord.indexOf(event.key));
 
-        // if (guessedRight = (randomWord.length -1)) {
+        //??? if (answerArray.indexOf("_")) {
         //     document.getElementById("gameEnd").innerHTML = "Yay! You win!";
         //     return;
         // }
+
+        // have repeated letters not count against score
+
+        //???? if (guessedLetterArray.indexOf(key) || randomWord.indexOf(key)) {
+        //     document.getElementById("gameEnd").innerHTML = "Already Guessed this";
+        // }
     
-        if  (checkLetter === -1 && guessesLeft > 0) {
+         if  (checkLetter === -1 && guessesLeft > 0) {
             guessedLetterArray.push(key);
             document.getElementById("guessedLetters").innerHTML = guessedLetterArray; 
             guessesLeft = (guessesLeft - 1);
@@ -54,7 +60,7 @@ document.onkeyup = function(event) {
         }
 
         else if (checkLetter != -1 && guessesLeft > 0) {
-            answerArray.splice([randomWord.indexOf(key)], 1, key);
+            answerArray.splice([randomWord.indexOf(key)], 1, key); //need to change it so all instances of letter get changed
             document.getElementById("rightLetters").innerHTML = answerArray;
         }
     
@@ -64,7 +70,9 @@ document.onkeyup = function(event) {
     
 }
 
-// }
+
+
+//have it run a winning screen once all blank spaces are gone
 
 // else {
     // document.getElementById("gameEnd").innerHTML = "Yay! You win!";

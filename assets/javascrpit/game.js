@@ -1,79 +1,109 @@
 
-var guessesLeft;
-var nintendo, sega, sony; 
+var wordChoices = ['nintendo', 'sega', 'sony'];
+var randomWord = '';
+var lettersInWord = [];
+var blanks = 0;
+var blanksandGuessed = [];
+var wrongGuessed = [];
 
-nintendo = ["n", "i", "n", "t", "e", "n", "d", "o"];
-sega = ["s", "e", "g", "a"];
-sony = ["s", "o", "n", "y"];
+var wins = 0;
+var losses = 0;
+var guessesLeft = 10;
 
-var guessedRight = 0;
+// Pick a random word and make blank spaces for it
 
-var wordChoices = [nintendo, sega, sony];
+function startGame() {
+    randomWord = wordChoices[Math.floor(Math.random()*wordChoices.length)];
+    lettersInWord = randomWord.split('');
+    blanks = lettersInWord.length;
 
-var randomWord = wordChoices[Math.floor(Math.random()*wordChoices.length)];
+    guessesLeft = 10;
+    wrongGuessed = [];
+    blanksandGuessed = [];
 
-guessesLeft = 12;
+    for (var i=0; i<blanks; i++) {
+        blanksandGuessed.push('_');
+    }
 
+    document.getElementById('wordToGuess').innerHTML = blanksandGuessed.join(' ');
+    document.getElementById('playerLives').innerHTML = guessesLeft;
+    document.getElementById('playerWins').innerHTML = wins;
+    document.getElementById('playerLosses').innerHTML = losses;
 
-var answerArray = [];
- for (var i = 0; i < randomWord.length; i++) {
- answerArray[i] = "_";
- }
+    console.log(randomWord);
+    console.log(lettersInWord);
+    console.log(blanks);
 
- document.getElementById("rightLetters").innerHTML = answerArray;
-
- var guessedLetterArray = [];
- for (var j = 0; j < randomWord.length; j++) {
-    guessedLetterArray[j] = "";
- }
-
- document.getElementById("guessedLetters").innerHTML = guessedLetterArray;
-
- //while there are blank spaces, run this code
-
-//??? while (answerArray.indexOf("_")) {
-
-// This function is run whenever the user presses a key.
-document.onkeyup = function(event) {
-
-
-    // Checks if the user's guess is in the random word.
-    key = (event.key);
-    var checkLetter = (randomWord.indexOf(event.key));
-
-        //??? if (answerArray.indexOf("_")) {
-        //     document.getElementById("gameEnd").innerHTML = "Yay! You win!";
-        //     return;
-        // }
-
-        // have repeated letters not count against score
-
-        //???? if (guessedLetterArray.indexOf(key) || randomWord.indexOf(key)) {
-        //     document.getElementById("gameEnd").innerHTML = "Already Guessed this";
-        // }
-    
-         if  (checkLetter === -1 && guessesLeft > 0) {
-            guessedLetterArray.push(key);
-            document.getElementById("guessedLetters").innerHTML = guessedLetterArray; 
-            guessesLeft = (guessesLeft - 1);
-            document.getElementById("guessesLeft").innerHTML = "Guesses left: " + guessesLeft;
-        }
-
-        else if (checkLetter != -1 && guessesLeft > 0) {
-            answerArray.splice([randomWord.indexOf(key)], 1, key); //need to change it so all instances of letter get changed
-            document.getElementById("rightLetters").innerHTML = answerArray;
-        }
-    
-        else {
-            document.getElementById("gameEnd").innerHTML = "Game Over";
-        }
-    
 }
 
+//Checks the letter to see if it's in the word
+
+function checkLetter(letter) {
+    
+    var isInWord = false;
+
+    for (var i=0; i<blanks; i++) {
+        if(randomWord[i] == letter) {
+            isInWord = true;
+        }
+
+    }
+
+    if (isInWord) {
+        for (var i=0; i<blanks; i++) {
+            if(randomWord[i] == letter) {
+                blanksandGuessed[i] = letter;
+            }
+
+        }
+    }
+        
+
+    else {
+        wrongGuessed.push(letter);
+        guessesLeft = guessesLeft - 1;
+    }
 
 
-//have it run a winning screen once all blank spaces are gone
+}
 
-// else {
-    // document.getElementById("gameEnd").innerHTML = "Yay! You win!";
-// }
+// Checks to see if you won or loss
+
+function roundComplete() {
+
+    document.getElementById('wordToGuess').innerHTML = blanksandGuessed.join(' ');
+    document.getElementById('playerWrong').innerHTML = wrongGuessed.join(' ');
+    document.getElementById('playerLives').innerHTML = guessesLeft;
+    document.getElementById('playerWins').innerHTML = wins;
+    document.getElementById('playerLosses').innerHTML = losses;
+    
+
+    if (lettersInWord.toString() == blanksandGuessed.toString()) {
+        wins = wins + 1;
+        document.getElementById('playerWins').innerHTML = wins;
+        alert('Congrats! You win');
+
+        startGame();
+    }
+
+    else if (guessesLeft == 0) {
+        losses = losses + 1;
+        document.getElementById('playerLosses').innerHTML = losses;
+
+        alert('Sorry, you lost.');
+        startGame();
+    } 
+}
+
+startGame();
+
+// Checks to see what key you pressed
+
+document.onkeyup = function(event) {
+
+    var pressedLetter = String.fromCharCode(event.keyCode).toLowerCase();
+    
+    checkLetter(pressedLetter);
+    roundComplete();
+
+}

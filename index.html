@@ -4,24 +4,35 @@
     <meta charset="UTF-8">
     <title>Hangman</title>
   <link rel="stylesheet" href="assets/css/style.css" type="text/css">
-
   </head>
-
   <body>
 
-    <h1>Welcome to Video Game Hangman!</h1>
+    <h1>Welcome to video game hangman!</h1>
 
-    <p>Press any button to begin a game.</p>
+    <div class = "wordToGuess">
+        <h2>Word to Guess</h2>
+        <p id="wordToGuess">_ _ _ _ _ _</p>
+    </div>
 
-    <p id="rightLetters"></p>
+    <div class = "guessedLetters">
+        <h2>Letters Guessed</h2>
+        <div id="playerWrong"></div>
+    </div>
 
-    <p id="guessedLetters"></p>
+    <div class = "guessesLeft">
+        <h2>Letters Guessed Wrong</h2>
+        <div id="playerLives"></div>
+    </div>
 
-    <p id="guessesLeft">Guesses Left: 12</p>
+    <div class = "Wins">
+        <h2>Wins</h2>
+        <div id="playerWins">0</div>
+    </div>
 
-    <p id="gameEnd"></p>
-    
-
+    <div class = "Losses">
+        <h2>Losses</h2>
+        <div id="playerLosses">0</div>
+    </div>
 
     <script src="assets/javascrpit/game.js"></script>
   

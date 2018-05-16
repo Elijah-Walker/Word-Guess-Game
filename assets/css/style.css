@@ -1,0 +1,20 @@
+body {
+    background-image: url('../images/background2.png') 
+}
+
+.words {
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    background-color: rgba(0,0,0,0.8);
+    padding: 20px;
+    width: 70%;
+    margin: 0px 15%;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 60px;
+    color: springgreen;
+    margin: 10px;
+}

@@ -1,5 +1,5 @@
 
-var wordChoices = ['nintendo', 'sega', 'sony'];
+var wordChoices = ['tetris', 'minecraft', 'portal', 'frogger', 'pokemon', 'sims'];
 var randomWord = '';
 var lettersInWord = [];
 var blanks = 0;
@@ -26,6 +26,7 @@ function startGame() {
     }
 
     document.getElementById('wordToGuess').innerHTML = blanksandGuessed.join(' ');
+    document.getElementById('playerWrong').innerHTML = wrongGuessed.join(' ');
     document.getElementById('playerLives').innerHTML = guessesLeft;
     document.getElementById('playerWins').innerHTML = wins;
     document.getElementById('playerLosses').innerHTML = losses;
@@ -81,7 +82,7 @@ function roundComplete() {
     if (lettersInWord.toString() == blanksandGuessed.toString()) {
         wins = wins + 1;
         document.getElementById('playerWins').innerHTML = wins;
-        alert('Congrats! You win');
+        // alert('Congrats! You win');
 
         startGame();
     }
@@ -90,7 +91,7 @@ function roundComplete() {
         losses = losses + 1;
         document.getElementById('playerLosses').innerHTML = losses;
 
-        alert('Sorry, you lost.');
+        // alert('Sorry, you lost.');
         startGame();
     } 
 }
